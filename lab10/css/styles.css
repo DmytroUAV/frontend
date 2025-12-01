@@ -70,6 +70,35 @@ input:focus {
 	border: 2px solid #10b981;
 	box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
 }
+.cell {
+	width: 100px;
+	height: 100px;
+	background: linear-gradient(145deg, #1e5a3e, #0d3d29);
+	border-radius: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 2px solid #10b981;
+	box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+}
+.column div:nth-child(1) {
+	opacity: 0.4;
+	filter: brightness(0.6);
+}
+.column div:nth-child(3) {
+	opacity: 0.4;
+	filter: brightness(0.6);
+}
+.column div:nth-child(2) {
+	border: 3px solid #10b981;
+	box-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
+}
+.cell img {
+	width: 80%;
+	height: 80%;
+	display: none;
+	object-fit: contain;
+}
 .cell img {
 	width: 80%;
 	height: 80%;
@@ -94,49 +123,49 @@ button {
 	font-weight: bold;
 }
 .history {
-background: linear-gradient(145deg, #0f3460, #1a1a2e);
-padding: 1.5rem;
-border-radius: 25px;
-border: 2px solid #00d9ff;
-box-shadow: 0 0 40px rgba(0, 217, 255, 0.3);
-width: 250px;
-max-height: 80vh;
-overflow-y: auto;
-margin-right: 20px;
+	background: linear-gradient(145deg, #0f3460, #1a1a2e);
+	padding: 1.5rem;
+	border-radius: 25px;
+	border: 2px solid #00d9ff;
+	box-shadow: 0 0 40px rgba(0, 217, 255, 0.3);
+	width: 250px;
+	max-height: 80vh;
+	overflow-y: auto;
+	margin-right: 20px;
 }
 .history h3 {
-color: #00d9ff;
-margin-top: 0;
-margin-bottom: 15px;
-font-size: 1.3rem;
+	color: #00d9ff;
+	margin-top: 0;
+	margin-bottom: 15px;
+	font-size: 1.3rem;
 }
 #historyList {
-display: flex;
-flex-direction: column;
-gap: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 }
 .history-item {
-background: rgba(0, 0, 0, 0.4);
-padding: 10px;
-border-radius: 10px;
-border-left: 4px solid;
-font-size: 0.9rem;
+	background: rgba(0, 0, 0, 0.4);
+	padding: 10px;
+	border-radius: 10px;
+	border-left: 4px solid;
+	font-size: 0.9rem;
 }
 .history-item.win {
-border-left-color: #10b981;
+	border-left-color: #10b981;
 }
 .history-item.lose {
-border-left-color: #e94560;
+	border-left-color: #e94560;
 }
 .history-item .combo {
-display: flex;
-gap: 5px;
-margin-top: 5px;
-justify-content: center;
+	display: flex;
+	gap: 5px;
+	margin-top: 5px;
+	justify-content: center;
 }
 .history-item .combo img {
-width: 25px;
-height: 25px;
+	width: 25px;
+	height: 25px;
 }
 button:hover {
 	background: linear-gradient(145deg, #059669, #047857);
@@ -160,7 +189,6 @@ body {
 	gap: 20px;
 	padding: 15px;
 }
-
 .history {
 	width: 90%;
 	max-width: 550px;
@@ -168,7 +196,6 @@ body {
 	margin-right: 0;
 	order: 2;
 }
-
 .casino {
 	order: 1;
 }
@@ -177,44 +204,35 @@ body {
 body {
 	padding: 10px;
 }
-
 .casino {
 	padding: 1.5rem;
 	width: 95%;
 }
-
 .history {
 	width: 95%;
 	padding: 1rem;
 	max-height: 250px;
 }
-
 .history h3 {
 	font-size: 1.1rem;
 }
-
 input {
 	font-size: 1rem;
 	padding: 10px;
 }
-
 .info {
 	font-size: 0.85rem;
 }
-
 .info div {
 	padding: 0.7rem 1.2rem;
 }
-
 .cell {
 	width: 80px;
 	height: 80px;
 }
-
 .slot {
 	gap: 10px;
 }
-
 button {
 	padding: 10px 25px;
 	font-size: 1.1rem;
@@ -224,47 +242,37 @@ button {
 .casino {
 	padding: 1rem;
 }
-
 .cell {
 	width: 65px;
 	height: 65px;
 }
-
 .slot {
 	gap: 8px;
 }
-
 .column {
 	gap: 8px;
 }
-
 .info {
 	font-size: 0.75rem;
 	gap: 8px;
 }
-
 .info div {
 	padding: 0.6rem 1rem;
 }
-
 button {
 	padding: 8px 20px;
 	font-size: 1rem;
 }
-
 .buttons {
 	gap: 10px;
 }
-
 input {
 	font-size: 0.9rem;
 }
-
 .history-item {
 	font-size: 0.8rem;
 	padding: 8px;
 }
-
 .history-item .combo img {
 	width: 20px;
 	height: 20px;
