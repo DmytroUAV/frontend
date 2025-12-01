@@ -140,7 +140,7 @@
         height: 55px;
     }
 }
-css@media (max-width: 480px)
+@media (max-width: 480px)
 {
     body
     {
@@ -188,4 +188,5 @@ css@media (max-width: 480px)
     {
         width: 100%;
     }
+
 }
