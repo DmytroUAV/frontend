@@ -1,0 +1,272 @@
+body {
+	color: rgb(255, 255, 255);
+	background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: Arial, sans-serif;
+	gap: 20px;
+	background-image: url("../assets/background.png");
+}
+.casino {
+	text-align: center;
+	background: linear-gradient(145deg, #0f3460, #1a1a2e);
+	padding: 2.5rem;
+	border-radius: 25px;
+	box-shadow: 0 0 60px #00d9ff, 0 0 30px rgba(0, 217, 255, 0.3);
+	width: 90%;
+	max-width: 550px;
+	border: 2px solid #00d9ff;
+}
+input {
+	color: rgb(255, 255, 255);
+	background-color: rgba(0, 0, 0, 0.5);
+	width: 80%;
+	padding: 12px;
+	border-radius: 15px;
+	border: 2px solid #00d9ff;
+	text-align: center;
+	font-size: 1.2rem;
+	margin-bottom: 20px;
+	transition: 0.3s;
+}
+input:focus {
+	outline: none;
+	box-shadow: 0 0 15px #00d9ff;
+}
+.info {
+	display: flex;
+	justify-content: space-around;
+	margin: 10px 0 25px 0;
+	font-size: 1rem;
+}
+.info div {
+	background: linear-gradient(145deg, #e94560, #d63447);
+	padding: 1rem 2rem;
+	border-radius: 15px;
+	box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+}
+.slot {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: 15px;
+	margin-bottom: 25px;
+}
+.column {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+.cell {
+	width: 100px;
+	height: 100px;
+	background: linear-gradient(145deg, #1e5a3e, #0d3d29);
+	border-radius: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 2px solid #10b981;
+	box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+}
+.cell img {
+	width: 80%;
+	height: 80%;
+	display: none;
+	object-fit: contain;
+}
+.buttons {
+	display: flex;
+	gap: 15px;
+	justify-content: center;
+}
+button {
+	padding: 12px 35px;
+	font-size: 1.3rem;
+	background: linear-gradient(145deg, #10b981, #059669);
+	color: white;
+	border: none;
+	border-radius: 15px;
+	cursor: pointer;
+	transition: 0.3s;
+	box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+	font-weight: bold;
+}
+.history {
+background: linear-gradient(145deg, #0f3460, #1a1a2e);
+padding: 1.5rem;
+border-radius: 25px;
+border: 2px solid #00d9ff;
+box-shadow: 0 0 40px rgba(0, 217, 255, 0.3);
+width: 250px;
+max-height: 80vh;
+overflow-y: auto;
+margin-right: 20px;
+}
+.history h3 {
+color: #00d9ff;
+margin-top: 0;
+margin-bottom: 15px;
+font-size: 1.3rem;
+}
+#historyList {
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+.history-item {
+background: rgba(0, 0, 0, 0.4);
+padding: 10px;
+border-radius: 10px;
+border-left: 4px solid;
+font-size: 0.9rem;
+}
+.history-item.win {
+border-left-color: #10b981;
+}
+.history-item.lose {
+border-left-color: #e94560;
+}
+.history-item .combo {
+display: flex;
+gap: 5px;
+margin-top: 5px;
+justify-content: center;
+}
+.history-item .combo img {
+width: 25px;
+height: 25px;
+}
+button:hover {
+	background: linear-gradient(145deg, #059669, #047857);
+	transform: translateY(-2px);
+	box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+}
+button:active {
+	transform: translateY(0);
+}
+#newGame {
+	background: linear-gradient(145deg, #3b82f6, #2563eb);
+	box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+#newGame:hover {
+	background: linear-gradient(145deg, #2563eb, #1d4ed8);
+	box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+}
+@media (max-width: 1024px) {
+body {
+	flex-direction: column;
+	gap: 20px;
+	padding: 15px;
+}
+
+.history {
+	width: 90%;
+	max-width: 550px;
+	max-height: 300px;
+	margin-right: 0;
+	order: 2;
+}
+
+.casino {
+	order: 1;
+}
+}
+@media (max-width: 768px) {
+body {
+	padding: 10px;
+}
+
+.casino {
+	padding: 1.5rem;
+	width: 95%;
+}
+
+.history {
+	width: 95%;
+	padding: 1rem;
+	max-height: 250px;
+}
+
+.history h3 {
+	font-size: 1.1rem;
+}
+
+input {
+	font-size: 1rem;
+	padding: 10px;
+}
+
+.info {
+	font-size: 0.85rem;
+}
+
+.info div {
+	padding: 0.7rem 1.2rem;
+}
+
+.cell {
+	width: 80px;
+	height: 80px;
+}
+
+.slot {
+	gap: 10px;
+}
+
+button {
+	padding: 10px 25px;
+	font-size: 1.1rem;
+}
+}
+@media (max-width: 480px) {
+.casino {
+	padding: 1rem;
+}
+
+.cell {
+	width: 65px;
+	height: 65px;
+}
+
+.slot {
+	gap: 8px;
+}
+
+.column {
+	gap: 8px;
+}
+
+.info {
+	font-size: 0.75rem;
+	gap: 8px;
+}
+
+.info div {
+	padding: 0.6rem 1rem;
+}
+
+button {
+	padding: 8px 20px;
+	font-size: 1rem;
+}
+
+.buttons {
+	gap: 10px;
+}
+
+input {
+	font-size: 0.9rem;
+}
+
+.history-item {
+	font-size: 0.8rem;
+	padding: 8px;
+}
+
+.history-item .combo img {
+	width: 20px;
+	height: 20px;
+}
+}
