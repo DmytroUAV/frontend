@@ -10,6 +10,6 @@ function func()
 document.body.innerHTML=`<div style="display:flex;justify-content: center;">
         <input id="input" style="font-size: 2rem; background-color:rgb(155, 207, 192); border-radius: 20px; width:50%; margin-top:1%; text-align:center;" placeholder="Запитаєте духів?" type="text" name="text" size="256">
     </div>
-    <div id="answer" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2rem; color:blue; font-family: Verdana, Geneva, Tahoma, sans-serif; text-align:center;"></div>`;
+    <div id="answer" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2rem; color:blue; text-align:center;"></div>`;
 document.body.style=`display:flex; flex-direction: column; background-color: black; background-image: url('magicball.gif');background-size: contain; background-repeat: no-repeat;background-position: center center; background-attachment: fixed;`;
 document.addEventListener('click',function(event){if (event.target !== document.getElementById('input')&&document.getElementById('input').value!=0&&document.getElementById('input').value) func();});
