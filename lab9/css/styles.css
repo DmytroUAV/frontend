@@ -1,0 +1,191 @@
+	body
+	{
+		font-size: 2rem;
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		margin: 0;
+		background-image: url("../assets/table_background.jpg");
+	}
+	body>div
+	{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 90%;
+		max-width: 600px;
+	}
+	input{
+		border-radius: 18px;
+		width: 100%;
+		margin-top: 1%;
+		margin-bottom: 1%;
+		text-align: center;
+	}
+	.container
+	{   
+		width: 100%;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+	}
+	button
+	{
+		padding: 10px 20px;
+		font-size: 1.5rem;
+		border-radius: 10px;
+		border: none;
+		cursor: pointer;
+		background-color: green;
+		margin: 5px;
+	}
+	#middle
+	{
+		display:flex;
+		flex-direction: column;
+		font-size: 1rem;
+		align-items: center;
+	}
+	.container div
+	{
+		display:flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	#userCard,#computerCard 
+	{
+		margin: 5% 0 5% 0;
+		display: flex;
+		justify-content: center;
+	}
+	#userPoint,#computerPoint 
+	{
+		margin: 5% 0 5% 0;
+		width:150px;
+		height:70px;
+		background-color: skyblue;
+		border-radius: 10%;
+		display: flex;
+		justify-content: center;
+	}
+	img
+	{
+		width:75%;
+		height:100%;
+	}
+	#history
+	{
+		margin-top: 20px;
+		width: 100%;
+		max-height: 200px;
+		overflow-y: auto;
+		border: 2px solid #ccc;
+		border-radius: 10px;
+		padding: 10px;
+		font-size: 0.9rem;
+	}
+	.history-round
+	{
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		margin: 10px 0;
+		padding: 10px;
+		background-color: darkgreen;
+		border-radius: 5px;
+	}
+	.history-card
+	{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.history-card img
+	{
+		width: 50px;
+		height: 70px;
+	}
+@media (max-width: 768px)
+{
+    body
+    {
+        font-size: 1.5rem;
+    }
+    button
+    {
+        padding: 8px 15px;
+        font-size: 1.2rem;
+    }
+    #userPoint, #computerPoint
+    {
+        width: 100px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    img
+    {
+        width: 90%;
+        height: 90%;
+    }
+    #history
+    {
+        font-size: 0.8rem;
+        max-height: 150px;
+    }
+    .history-card img
+    {
+        width: 40px;
+        height: 55px;
+    }
+}
+css@media (max-width: 480px)
+{
+    body
+    {
+        font-size: 1.2rem;
+    }
+    button
+    {
+        padding: 6px 12px;
+        font-size: 1rem;
+        margin: 3px;
+    }
+    #userPoint, #computerPoint
+    {
+        width: 80px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    .container
+    {
+        flex-direction: row;
+    }
+    .container > div
+    {
+        width: 33%;
+    }
+    #middle
+    {
+        font-size: 0.8rem;
+    }
+    #history
+    {
+        font-size: 0.7rem;
+        max-height: 120px;
+    }
+    .history-card img
+    {
+        width: 35px;
+        height: 50px;
+    }
+    input
+    {
+        font-size: 1rem;
+    }
+    img
+    {
+        width: 100%;
+    }
+}
