@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Решатель пятнашек</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 900px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 5px;
+                align-items: flex-start;
+            }
+
+            .container {
+                padding: 15px;
+                border-radius: 15px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+                margin-bottom: 15px;
+            }
+        }
+
+        .controls {
+            margin-bottom: 20px;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        select, button, textarea {
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 2px solid #667eea;
+            transition: all 0.3s;
+        }
+
+        select {
+            width: 100%;
+            max-width: 200px;
+            background: white;
+            cursor: pointer;
+        }
+
+        textarea {
+            width: 100%;
+            max-width: 100%;
+            font-family: 'Courier New', monospace;
+            resize: vertical;
+            font-size: 14px;
+        }
+
+        button {
+            cursor: pointer;
+            background: #667eea;
+            color: white;
+            border: none;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            padding: 10px 15px;
+        }
+
+        button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                margin-bottom: 15px;
+            }
+
+            .control-group {
+                margin-bottom: 12px;
+            }
+
+            select, button, textarea {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+
+            select {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            button {
+                width: calc(50% - 5px);
+                margin-right: 0;
+                font-size: 13px;
+                padding: 10px;
+            }
+
+            button:nth-child(odd) {
+                margin-right: 10px;
+            }
+        }
+
+        .puzzle-container {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .puzzle-section {
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+        }
+
+        .puzzle-title {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .puzzle {
+            display: grid;
+            gap: 8px;
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 0 auto;
+            width: fit-content;
+        }
+
+        .tile {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .tile.filled {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .tile.filled:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .tile.filled:active {
+            transform: scale(0.95);
+        }
+
+        .tile.empty {
+            background: #ddd;
+        }
+
+        @media (max-width: 768px) {
+            .tile {
+                width: 55px;
+                height: 55px;
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tile {
+                width: 45px;
+                height: 45px;
+                font-size: 16px;
+            }
+        }
+
+        .solution {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .solution h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .info {
+            color: #666;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .loading {
+            text-align: center;
+            color: #667eea;
+            font-size: 18px;
+            padding: 20px;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .step-display {
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .step-number {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .step-grid {
+            display: grid;
+            gap: 5px;
+            width: fit-content;
+            margin: 10px 0;
+        }
+
+        .step-tile {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .step-tile.empty {
+            background: #e0e0e0;
+        }
+
+        .step-tile.moved {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: 0 0 15px rgba(245, 87, 108, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Решатель пятнашек</h1>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label for="size">Размер поля:</label>
+                <select id="size">
+                    <option value="3">3x3 (8 плиток)</option>
+                    <option value="4" selected>4x4 (15 плиток)</option>
+                    <option value="5">5x5 (24 плитки)</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label>Введите позицию (0 - пустая клетка):</label>
+                <textarea id="inputBoard" rows="4" placeholder="Введите числа через пробел или запятую, например:
+1 2 3 4
+5 6 7 8
+9 10 11 12
+13 14 15 0"></textarea>
+            </div>
+            
+            <div>
+                <button onclick="loadFromInput()">📥 Загрузить позицию</button>
+                <button onclick="resetPuzzle()">🔄 Сбросить поле</button>
+                <button onclick="randomizePuzzle()">🎲 Случайная позиция</button>
+                <button onclick="solvePuzzle()">✨ Решить!</button>
+            </div>
+        </div>
+
+        <div class="puzzle-container">
+            <div class="puzzle-section">
+                <div class="puzzle-title">Текущая позиция (кликайте для перемещения)</div>
+                <div id="puzzle" class="puzzle"></div>
+            </div>
+        </div>
+
+        <div id="solution" class="solution" style="display: none;">
+            <h2>Решение найдено! 🎉</h2>
+            <p class="info">Количество ходов: <span id="moveCount">0</span></p>
+            <div id="stepsDisplay"></div>
+        </div>
+
+        <div id="loading" class="loading" style="display: none;">
+            ⏳ Ищу решение... Это может занять некоторое время.
+        </div>
+
+        <div id="error" class="error" style="display: none;"></div>
+    </div>
+
+    <script>
+        let size = 4;
+        let board = [];
+        let emptyPos = { row: 0, col: 0 };
+        let solution = [];
+
+        function initBoard() {
+            size = parseInt(document.getElementById('size').value);
+            board = [];
+            
+            // Создаём решённое состояние
+            let num = 1;
+            for (let i = 0; i < size; i++) {
+                board[i] = [];
+                for (let j = 0; j < size; j++) {
+                    if (i === size - 1 && j === size - 1) {
+                        board[i][j] = 0;
+                        emptyPos = { row: i, col: j };
+                    } else {
+                        board[i][j] = num++;
+                    }
+                }
+            }
+            
+            renderBoard();
+            hideElement('solution');
+            hideElement('error');
+        }
+
+        function hideElement(id) {
+            const el = document.getElementById(id);
+            if (el) el.style.display = 'none';
+        }
+
+        function showElement(id, display = 'block') {
+            const el = document.getElementById(id);
+            if (el) el.style.display = display;
+        }
+
+        function renderBoard(targetId = 'puzzle') {
+            const puzzle = document.getElementById(targetId);
+            if (!puzzle) return;
+            
+            puzzle.innerHTML = '';
+            puzzle.style.gridTemplateColumns = `repeat(${size}, 70px)`;
+            
+            for (let i = 0; i < size; i++) {
+                for (let j = 0; j < size; j++) {
+                    const tile = document.createElement('div');
+                    tile.className = 'tile';
+                    
+                    if (board[i][j] === 0) {
+                        tile.classList.add('empty');
+                    } else {
+                        tile.classList.add('filled');
+                        tile.textContent = board[i][j];
+                        tile.onclick = () => moveTile(i, j);
+                    }
+                    
+                    puzzle.appendChild(tile);
+                }
+            }
+        }
+
+        function moveTile(row, col) {
+            const dr = Math.abs(row - emptyPos.row);
+            const dc = Math.abs(col - emptyPos.col);
+            
+            if ((dr === 1 && dc === 0) || (dr === 0 && dc === 1)) {
+                board[emptyPos.row][emptyPos.col] = board[row][col];
+                board[row][col] = 0;
+                emptyPos = { row, col };
+                renderBoard();
+            }
+        }
+
+        function randomizePuzzle() {
+            const moves = size * size * 10;
+            
+            for (let i = 0; i < moves; i++) {
+                const possibleMoves = [];
+                
+                if (emptyPos.row > 0) possibleMoves.push({ row: emptyPos.row - 1, col: emptyPos.col });
+                if (emptyPos.row < size - 1) possibleMoves.push({ row: emptyPos.row + 1, col: emptyPos.col });
+                if (emptyPos.col > 0) possibleMoves.push({ row: emptyPos.row, col: emptyPos.col - 1 });
+                if (emptyPos.col < size - 1) possibleMoves.push({ row: emptyPos.row, col: emptyPos.col + 1 });
+                
+                const move = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+                moveTile(move.row, move.col);
+            }
+        }
+
+        function resetPuzzle() {
+            initBoard();
+        }
+
+        function loadFromInput() {
+            const input = document.getElementById('inputBoard').value;
+            const numbers = input.split(/[\s,]+/).map(n => parseInt(n.trim())).filter(n => !isNaN(n));
+            
+            const expectedSize = size * size;
+            
+            if (numbers.length !== expectedSize) {
+                showError(`Ошибка: ожидается ${expectedSize} чисел для поля ${size}x${size}, получено ${numbers.length}`);
+                return;
+            }
+            
+            const sortedNumbers = [...numbers].sort((a, b) => a - b);
+            for (let i = 0; i < expectedSize; i++) {
+                if (sortedNumbers[i] !== i) {
+                    showError(`Ошибка: должны быть все числа от 0 до ${expectedSize - 1}`);
+                    return;
+                }
+            }
+            
+            board = [];
+            let index = 0;
+            for (let i = 0; i < size; i++) {
+                board[i] = [];
+                for (let j = 0; j < size; j++) {
+                    board[i][j] = numbers[index];
+                    if (numbers[index] === 0) {
+                        emptyPos = { row: i, col: j };
+                    }
+                    index++;
+                }
+            }
+            
+            renderBoard();
+            hideElement('solution');
+            hideElement('error');
+        }
+
+        function boardToString(b) {
+            return b.flat().join(',');
+        }
+
+        function isSolved(b) {
+            let num = 1;
+            for (let i = 0; i < size; i++) {
+                for (let j = 0; j < size; j++) {
+                    if (i === size - 1 && j === size - 1) {
+                        return b[i][j] === 0;
+                    }
+                    if (b[i][j] !== num++) return false;
+                }
+            }
+            return true;
+        }
+
+        function getEmptyPos(b) {
+            for (let i = 0; i < size; i++) {
+                for (let j = 0; j < size; j++) {
+                    if (b[i][j] === 0) return { row: i, col: j };
+                }
+            }
+        }
+
+        function copyBoard(b) {
+            return b.map(row => [...row]);
+        }
+
+        function manhattanDistance(b) {
+            let dist = 0;
+            for (let i = 0; i < size; i++) {
+                for (let j = 0; j < size; j++) {
+                    const val = b[i][j];
+                    if (val !== 0) {
+                        const targetRow = Math.floor((val - 1) / size);
+                        const targetCol = (val - 1) % size;
+                        dist += Math.abs(i - targetRow) + Math.abs(j - targetCol);
+                    }
+                }
+            }
+            return dist;
+        }
+
+        async function solvePuzzle() {
+            if (isSolved(board)) {
+                showError('Пятнашки уже решены! 🎉');
+                return;
+            }
+
+            showElement('loading');
+            hideElement('solution');
+            hideElement('error');
+
+            setTimeout(() => {
+                const result = aStarSolve();
+                
+                hideElement('loading');
+                
+                if (result) {
+                    solution = result;
+                    displaySolution();
+                } else {
+                    showError('Не удалось найти решение. Попробуйте использовать "Случайная позиция" для создания решаемой комбинации.');
+                }
+            }, 100);
+        }
+
+        function aStarSolve() {
+            const start = copyBoard(board);
+            const startKey = boardToString(start);
+            
+            const openSet = [{ board: start, path: [], f: manhattanDistance(start), g: 0 }];
+            const closedSet = new Set();
+            
+            const maxIterations = 100000;
+            let iterations = 0;
+            
+            while (openSet.length > 0 && iterations < maxIterations) {
+                iterations++;
+                
+                openSet.sort((a, b) => a.f - b.f);
+                const current = openSet.shift();
+                
+                if (isSolved(current.board)) {
+                    return current.path;
+                }
+                
+                const currentKey = boardToString(current.board);
+                if (closedSet.has(currentKey)) continue;
+                closedSet.add(currentKey);
+                
+                const empty = getEmptyPos(current.board);
+                const moves = [
+                    { row: empty.row - 1, col: empty.col },
+                    { row: empty.row + 1, col: empty.col },
+                    { row: empty.row, col: empty.col - 1 },
+                    { row: empty.row, col: empty.col + 1 }
+                ];
+                
+                for (const move of moves) {
+                    if (move.row >= 0 && move.row < size && move.col >= 0 && move.col < size) {
+                        const newBoard = copyBoard(current.board);
+                        newBoard[empty.row][empty.col] = newBoard[move.row][move.col];
+                        newBoard[move.row][move.col] = 0;
+                        
+                        const newKey = boardToString(newBoard);
+                        if (!closedSet.has(newKey)) {
+                            const g = current.g + 1;
+                            const h = manhattanDistance(newBoard);
+                            openSet.push({
+                                board: newBoard,
+                                path: [...current.path, newBoard],
+                                f: g + h,
+                                g: g
+                            });
+                        }
+                    }
+                }
+            }
+            
+            return null;
+        }
+
+        function displaySolution() {
+            showElement('solution');
+            
+            const moveCountEl = document.getElementById('moveCount');
+            if (moveCountEl) moveCountEl.textContent = solution.length;
+            
+            const stepsDisplay = document.getElementById('stepsDisplay');
+            if (!stepsDisplay) return;
+            
+            stepsDisplay.innerHTML = '';
+            
+            const initialState = copyBoard(board);
+            addStepToDisplay(stepsDisplay, 0, initialState, null);
+            
+            for (let i = 0; i < solution.length; i++) {
+                const prevBoard = i === 0 ? initialState : solution[i - 1];
+                const movedTile = getMovedTile(prevBoard, solution[i]);
+                addStepToDisplay(stepsDisplay, i + 1, solution[i], movedTile);
+            }
+        }
+
+        function getMovedTile(prevBoard, currentBoard) {
+            for (let i = 0; i < size; i++) {
+                for (let j = 0; j < size; j++) {
+                    if (currentBoard[i][j] === 0 && prevBoard[i][j] !== 0) {
+                        return prevBoard[i][j];
+                    }
+                }
+            }
+            return null;
+        }
+
+        function addStepToDisplay(container, stepNum, boardState, movedTile) {
+            const stepDiv = document.createElement('div');
+            stepDiv.className = 'step-display';
+            
+            const stepNumber = document.createElement('div');
+            stepNumber.className = 'step-number';
+            if (stepNum === 0) {
+                stepNumber.textContent = '🎯 Начальная позиция';
+            } else {
+                stepNumber.textContent = `Шаг ${stepNum}: переместить плитку ${movedTile}`;
+            }
+            stepDiv.appendChild(stepNumber);
+            
+            const grid = document.createElement('div');
+            grid.className = 'step-grid';
+            grid.style.gridTemplateColumns = `repeat(${size}, 45px)`;
+            
+            for (let i = 0; i < size; i++) {
+                for (let j = 0; j < size; j++) {
+                    const tile = document.createElement('div');
+                    tile.className = 'step-tile';
+                    
+                    if (boardState[i][j] === 0) {
+                        tile.classList.add('empty');
+                    } else {
+                        tile.textContent = boardState[i][j];
+                        if (boardState[i][j] === movedTile) {
+                            tile.classList.add('moved');
+                        }
+                    }
+                    
+                    grid.appendChild(tile);
+                }
+            }
+            
+            stepDiv.appendChild(grid);
+            container.appendChild(stepDiv);
+        }
+
+        function showError(msg) {
+            const errorDiv = document.getElementById('error');
+            if (errorDiv) {
+                errorDiv.textContent = msg;
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        initBoard();
+        
+        document.getElementById('size').addEventListener('change', initBoard);
+    </script>
+</body>
+</html>
